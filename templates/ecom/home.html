@@ -1,0 +1,177 @@
+{% extends 'ecom/homebase.html' %}
+{% block title%} corousal {% endblock %}
+{% block css %}
+.carousel-item .col-md-3
+{
+display: inline-block;
+margin-left:-23px;
+}
+.catbtnrow{
+    background-color:white;
+}
+<!-- corousal -->
+.carousel-indicators  li{
+    bottom: -12px !important !important;
+}
+.btn-floating{
+    color: black;
+}
+.fa-chevron-right{
+    margin-left: -14px !important; 
+}
+.carousel-inner {
+    padding: 16px 12px;
+    background-color: white;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+}
+.carousel-indicators .active {
+    background-color: #023cd1 !important;
+}
+<!-- card -->
+.card {
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+    border: solid 1px #0da2ff;
+    width: 300px !important;
+    max-height: 380px;
+}
+
+
+.card h5 {
+    overflow: hidden;
+    font-weight: 900;
+    font-size: 1rem
+}
+
+.card-img-top {
+    width: 321px;
+    height: 236px;
+}
+
+.card h2 {
+    font-size: 1rem
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06)
+
+}
+.productanchor{
+    color: inherit;
+
+}
+.productanchor:hover{
+    color: inherit;
+}
+
+.btn {
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 5px 50px 5px 50px;
+    border: none !important;
+}
+.btn-secondary{
+    border-radius: 3px 3px 0px 0px !important;
+    background-color: #4d4d4f !important;
+    width: 200px;
+    height: 45px;
+}
+.btn-secondary:focus{
+    border: none !important;
+    outline:none;
+    box-shadow: none !important;
+
+}
+.float-end{
+    float:right;
+}
+.product_name{
+    font-weight:600;
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-size: 18px ;
+}
+.badge{
+    height: 22px;
+    padding: 5px 7px !important;
+    color: white;
+}
+.price-hp{
+    color: rgb(131, 131, 131);
+}
+{% endblock %}
+{% block body %}
+{% load static %}
+<div class="bg-light d-flex pt-2 px-5">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Categories
+        </button>
+        <div class="dropdown-menu" style="width: 200px;" aria-labelledby="dropdownMenuButton">
+            {% for items in categories %} 
+            <form action="/searchbycat" method="get" class="justify-content-start">
+              <input style="display:none;" type="text" name="query" value="{{items}}">
+                <button style="border: none; background-color: transparent;" type="submit" class="category_dropdown_btn">{{items}}</button>
+            </form>
+            {% endfor %}
+        </div>
+      </div>
+</div>
+<div style="padding: 50px 20px; background-color: #efefef;">
+    {% for product, range, nSlides in allProds %}
+    <h3 style="background-color:white; padding:10px; padding-left: 30px;" class="shadow-sm">{{product.0.category}} </h3>
+    <!--Carousel Wrapper-->
+    <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+      <!--Slides-->
+      <div class="carousel-inner" role="listbox">
+  
+        <!--First slide-->
+        <div class="carousel-item active">
+            <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+            {% for p in product %}
+            <a href="{% url 'add-to-cart' pk=p.id quantity=p.quantity  %}" class="productanchor col-md-3">
+                <div class="card shadow-sm" > <img src="{% static p.product_image.url %}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <div class="clearfix mb-3"> <span class="product_name">{{p.name}}</span> 
+                      {% if p.quantity == "0" %}
+                      <span class="float-end badge rounded-pill bg-primary">Out of Stock</span>
+                      {% else %}
+                      <span class="float-end badge rounded-pill bg-primary">Quantity Available {{p.quantity}}</span>
+                    </div>
+                     {% endif %}
+                        <span class="float-start price-hp"><b>Price R.{{p.price}}</b></span> 
+                      <p class="card-title">{{p.description}}</p>
+                  </div>
+              </div>
+            </a>
+ 
+            {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+            <a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+        </div>
+        <div class="carousel-item">
+            <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+            {% endif %}
+            {% endfor %}
+            <a class="btn-floating " href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+        </div>
+
+        <!--/.First slide-->
+      </div>
+      <!--/.Slides-->
+  
+    </div>
+    <!--/.Carousel Wrapper-->
+    {% endfor %}
+  
+  </div>
+{%endblock body%}
+{% block js %}
+
+{% endblock js %}
+
+
+
+

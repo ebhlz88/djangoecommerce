@@ -1,0 +1,183 @@
+{% extends 'ecom/homebase.html' %}
+
+
+
+
+{% block css %}
+
+    body,
+html {
+  height: 100%;
+
+}
+
+:root {
+    --font1: 'Heebo', sans-serif;
+    --font2: 'Fira Sans Extra Condensed', sans-serif;
+    --font3: 'Roboto', sans-serif
+}
+
+h2 {
+    font-weight: 900
+}
+
+.container-fluid {
+    max-width: 1200px
+}
+
+.card {
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+    border: solid 1px #0da2ff;
+    width: 310px !important;
+    max-height: 380px;
+}
+
+
+.card h5 {
+    overflow: hidden;
+    font-weight: 900;
+    font-size: 1rem
+}
+
+.card-img-top {
+    width: 321px;
+    height: 236px;
+}
+
+.card h2 {
+    font-size: 1rem
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06)
+}
+.productanchor{
+    color: inherit;
+}
+.productanchor:hover{
+    color: inherit;
+}
+
+.btn {
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 5px 50px 5px 50px
+}
+.btn-secondary{
+    border-radius: 3px 3px 0px 0px !important;
+    background-color: #4d4d4f !important;
+    border: none !important;
+    width: 180px;
+}
+.btn-secondary:focus{
+    border: none !important;
+    outline:none;
+    box-shadow: none !important;
+
+}
+.float-end{
+    float:right;
+}
+.product_name{
+    font-weight:600;
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-size: 18px ;
+}
+.badge{
+    height: 22px;
+    padding: 5px 7px !important;
+    color: white;
+}
+.price-hp{
+    color: rgb(131, 131, 131);
+}
+
+.category_item{
+    background-color:transparent;
+    border:none;
+    width: 100%;
+    border-top:solid 1px #919090;;
+}
+.category_item:hover{
+    color: #0da2ff;
+    text-transform: underline;
+    cursor: pointer;
+}
+.category_item:focus{
+    background-color:white;
+    border:none;
+}
+.header{
+    margin-top: 10px !important;
+    color:white;
+}
+.sidebar{
+    height:100vh;
+    background-color:inherit;
+    position:static;
+
+}
+.category_div{
+    
+    width: 178px;
+
+}
+.cat_btn{
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    color: white;
+}
+.cat_btn:focus{
+    border: none;
+    outline: none;
+
+}
+.cat_btn:hover{
+    cursor: pointer;
+}
+.cat_btn h4{
+    margin:0 4px;
+    padding: 8px 0;
+}
+#sideform{
+    border-radius: 0px 0px 5px 5px;
+    border-right: 1px solid #919090;;
+    border-bottom: 1px solid #919090;;
+    border-left: 1px solid #919090;;
+    padding: 1px 0px;
+    background-color: white;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .column {
+    width: 100%;
+  }
+  .sidebar{
+    height:auto;
+    padding: 20px 0 ;
+    flex-direction: row;
+}
+.card{
+    margin-bottom: 20px ;
+}
+.header{
+    padding: 2px 63px;
+    width: 105%;
+}
+
+}
+{% endblock %}
+{%block body%}
+{% load widget_tweaks %}
+{% load static %}
+
+{%block content%}
+{% endblock content %}
+{%endblock body%}

@@ -1,0 +1,43 @@
+{% extends 'ecom/homebase.html' %}
+
+{% block title%}About Us{% endblock title %}
+
+
+{% block css %}
+body{
+  background-color: white !important;
+}
+#aboutus{
+  min-height: 52vh !important;
+  padding: 30px;
+}
+.aboutheader{
+  text-align: left;
+  color: #5a5aff;
+  font-size: 100px;
+}
+.aboutimg{
+  height: 500px;
+}
+@media screen and (max-width: 768px) {
+  .aboutimg{
+    height: 230px;
+  }
+}
+  {% endblock css%}
+
+  {%block body%}
+  {% load static %}
+  <div id="aboutus" class="row">
+    <div class="col-md-5 d-flex flex-column align-items-center justify-content-center">
+      <h1 class="aboutheader"> About <br/>Us</h1>
+      <p class="ml-5">“I don’t create companies for the sake of creating companies, but to get things done.” </p>
+    </div>
+    <div class="col-md-7 d-flex justify-content-center align-items-center">
+      <img class="aboutimg" src="{% static 'images/aboutus.png' %}" alt="">
+    </div>
+    
+  </div>
+
+
+  {%endblock body%}

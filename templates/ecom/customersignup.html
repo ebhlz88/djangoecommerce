@@ -1,0 +1,80 @@
+{% extends 'ecom/container.html' %}
+{% block title%} Login {% endblock %}
+{% load widget_tweaks %}
+{% load static %}
+{% block css %}
+body{
+  background-color: white !important;
+}
+.container-div{
+  width: 54% !important;
+  background-color: white;
+  box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+  -webkit-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+  -moz-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+}
+#customerlogin .col-md-6{
+  padding:0;
+}
+.absolute{
+  postion:absolute;
+}
+.loginform input{
+  margin: 8px 0;
+}
+.loginform input[type=submit]{
+  background-color: rgb(1, 98, 143);
+  width: 100px;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  padding: 8px;
+}
+.login-img{
+    background-image:url({% static 'images/login.png' %}) ;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white ;
+  }
+.loginform h3{
+  color: #0da2ff !important;
+  font-weight: 700;
+  padding: 0 38px;
+}
+@media screen and (max-width: 768px) {
+  .login-img{
+    background-size: cover;
+  }
+}
+{% endblock css %}
+{% block content %}
+
+<div id="customerlogin" class="row">
+<div class="col-md-6 d-flex flex-column justify-content-center align-items-center login-img">
+    <h1>Welcome</h1>
+    <p>We provide quality product</p>
+</div>
+<div class="col-md-6 d-flex justify-content-center py-5 loginform">
+    <form class="d-flex flex-column justify-content-center align-items-center w-100 px-4"  method="post">
+    {% csrf_token %}
+    <h3 class="justify-content-center">Sign Up</h3>
+      <p class="text-muted"> Enter your details to create account</p>
+            {%if messages %}
+            {%for message in messages%}
+            <p style="color:red">{{message}}</p>
+            {%endfor%}
+            {%endif%}
+            {% render_field userForm.email class="form-control" placeholder="email" %}
+            {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+            {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+              {% render_field userForm.password class="form-control" placeholder="Password" %}
+              {% render_field userForm.confirm_password class="form-control" placeholder="Confirm Password" %}
+                  {% render_field customerForm.mobile class="form-control" placeholder="Mobile" %}
+                 
+    
+       <input type="submit" name="" value="Create">
+
+      </form>
+    </div>
+    </div>
+    {% endblock content %}

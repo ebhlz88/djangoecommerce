@@ -1,0 +1,52 @@
+{% extends 'ecom/product_container.html' %}
+{% block title%} Home {% endblock %}
+{% block content %}
+{% load static %}
+<!-- {% if message %}
+{% include 'ecom/toast.html' %}
+{% endif %} -->
+{%if messages %}
+{%for message in messages%}
+{% include 'ecom/toast.html' with logoutmsg=message %}
+{%endfor%}
+{%endif%}
+{%if products%}
+{{word}}
+  <div class="col-md-12 row py-3"> 
+
+      {% for p in products %}
+      <a href="{% url 'add-to-cart' p.id p.quantity  %} " class="productanchor my-3">
+      <div class="card shadow-sm m-2" > <img src="{% static p.product_image.url %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <div class="clearfix mb-3"> <span class="product_name">{{p.name}}</span> 
+            {% if p.quantity == "0" %}
+            <span class="float-end badge rounded-pill bg-primary">Out of Stock</span>
+            {% else %}
+            <span class="float-end badge rounded-pill bg-primary">Quantity Available {{p.quantity}}</span>
+          </div>
+           {% endif %}
+              <span class="float-start price-hp"><b>Price R.{{p.price}}</b></span> 
+            <p class="card-title">{{p.description}}</p>
+        </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{%else%}
+<h3 style="text-align:center; color:red;">Sorry! No product found</h3>
+{%endif%}
+
+</div>
+{%endblock content%}
+{% block js %}
+
+    {%if messages %}
+    {%for message in messages%}
+    <!-- alert('{{message}}'); -->
+    {%endfor%}
+    {%endif%}
+{% endblock js %}
+
+
+
+

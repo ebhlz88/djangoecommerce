@@ -1,0 +1,58 @@
+{% extends 'ecom/container.html' %}
+
+{% block title%}Feedback{% endblock title %}
+
+
+{% block css %}
+body{
+background-color: white !important;
+}
+.container-div{
+width: 42% !important;
+background-color: white;
+box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+-webkit-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+-moz-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+}
+input[type=text]{
+margin: 18px 0;
+}
+input[type=submit]{
+background-color: rgb(1, 98, 143);
+width: 135px;
+border-radius: 6px;
+border: none;
+color: white;
+padding: 8px;
+margin-bottom: 32px;
+}
+form{
+  width:60%;
+  margin: 23px;
+}
+.alert-success{
+  width:100%;
+}
+{% endblock css%}
+
+{%block content%}
+{% load static %}
+{% load widget_tweaks %}
+<div class="d-flex flex-column align-items-center">
+  <h3 class='alert alert-success text-center'>Send Us Your Valuable Feedback !</h3>
+
+
+  <form method="post col-md-6 justify-content-center">
+    {% csrf_token %}
+
+    {% render_field feedbackForm.name class="field-long form-control" placeholder="Name" %}
+
+    {% render_field feedbackForm.feedback id="field5" class="field-long field-textarea form-control" placeholder="Feedback" %}
+
+
+    <input type="submit" value="Send Feedback" />
+  </form>
+
+
+</div>
+{%endblock content%}

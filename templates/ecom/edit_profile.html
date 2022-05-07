@@ -1,0 +1,102 @@
+{% extends 'ecom/container.html' %}
+
+{% block title%}Feedback{% endblock title %}
+
+
+{% block css %}
+body{
+  background-color: white !important;
+  }
+  .container-div{
+  width: 42% !important;
+  background-color: white;
+  box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+  -webkit-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+  -moz-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+  }
+  input[type=text], input[type=password]{
+  margin: 18px 0;
+  }
+  button{
+  background-color: rgb(1, 98, 143);
+  width: 135px;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  padding: 8px;
+  margin-bottom: 32px;
+  }
+  form{
+    width:63%;
+
+  }
+  #profileform{
+    display: none;
+  }
+  .alert-success{
+    width:100%;
+  }
+  .header{
+    padding:10px 0;
+    background-color: #0da2ff !important;
+    font-size:24px;
+    font-weight: bold;
+    color:white;
+  }
+  .profileview{
+    width:63%;
+  }
+  .profileview p{
+    margin: 18px 0;
+  }
+    {% endblock css%}
+
+    {%block content%}
+    {% load static %}
+    {% load widget_tweaks %}
+    <div id="view">
+  <div class="header text-center">
+      <p>PROFILE</p>
+    </div> 
+  <div  class="d-flex flex-column justify-content-center mx-auto py-3 profileview" >
+    <p class="form-control">{{request.user}}</p>
+    <p class="form-control">{{customer.mobile}}</p>
+    <p class="form-control">Password</p>
+    <p class="form-control">{{customer.address}}</p>
+    <button onclick="editshow()">Edit Profile</button>
+  </div>
+  </div>
+  <div id="profileform">
+  <div class="header text-center">
+    <p>EDIT PROFILE</p>
+  </div> 
+<form method="post" enctype="multipart/form-data" class="d-flex flex-column justify-content-center mx-auto">
+  {% csrf_token %}
+    {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+
+    {% render_field userForm.username class="form-control" placeholder="Username" %}
+
+    {% render_field customerForm.mobile class="form-control" placeholder="Mobile"%}
+
+    {% render_field customerForm.profile_pic class="form-control" placeholder="Profile Picture" %}
+
+    {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+
+    {% render_field userForm.password class="form-control" placeholder="Password" %}
+
+    {% render_field customerForm.address class="form-control" placeholder="Address" %}
+
+  <button type="submit" onsubmit="viewprofile()" class="btnSubmit">Update</button>
+</form>
+</div>
+{%endblock content%}
+{% block js %}
+function editshow(){
+  document.getElementById("view").style.display = "none"; 
+  document.getElementById("profileform").style.display = "block"; 
+}
+function viewprofile(){
+  document.getElementById("profileform").style.display = "none"; 
+  document.getElementById("view").style.display = "block"; 
+}
+{% endblock %}

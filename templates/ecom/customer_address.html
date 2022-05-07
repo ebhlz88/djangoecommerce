@@ -1,0 +1,67 @@
+{% extends 'ecom/homebase.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block css %}
+.container-div{
+width: 40% !important;
+background-color: white;
+box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+-webkit-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+-moz-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+}
+li{
+list-style-type:none;
+margin: 20px 0;
+}
+.column2{
+background-color:#e3e3e3;
+}
+.productdiv{
+	background-color:white;
+	border-radius: 5px;
+	margin: 5px 0;
+}
+.column2 p{
+	margin-bottom: 0;
+	}
+.productimage{
+	height: 60px;
+	margin-right: 21px;
+}
+{% endblock %}
+
+{%block body%}
+{%if product_in_cart%}
+<div class="container-div  justify-content-center row align-item-center mx-auto my-5">
+	<script src="https://js.paystack.co/v1/inline.js"></script>
+	<div class="col-md-10 py-4 px-2">
+		<form method="post">
+			{% csrf_token %}
+			<ul class="form-style-1">
+				<li>
+					<label>Mobile No<span class="required">*</span></label>
+					{% render_field addressForm.Mobile class="form-control" placeholder="Mobile Number" %}
+				</li>
+
+				<li>
+					<label>Shipment Address <span class="required">*</span></label>
+					{% render_field addressForm.Address id="field5" class="form-control" placeholder="12 Glen Dr,Sandton, Johannesburg 2000" %}
+
+				</li>
+				<li class="d-flex justify-content-between align-items-center">
+					<h5 style="margin-bottom: 0;">Total:{{total}}</h5>
+					<button type="submit" class="btn btn-primary">Pay with Paystack</button>
+					
+				</li>
+			</ul>
+		</form>
+		{%else%}
+		<h1 style="text-align:center; color:red;"> First Add Product In Cart </h1>
+
+		{%endif%}
+	</div>
+</div>
+
+{% endblock body %}

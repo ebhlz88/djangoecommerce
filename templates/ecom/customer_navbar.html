@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Dfloss</title>
+    <style>
+        body {
+            background-color: #dbdbdb;
+        }
+        .navbar{
+            margin-bottom: 0;
+            padding: 10px 39px;
+        }
+ 
+        .navbar-brand {
+            font-size: 32px;
+            color: #0da2ff !important;
+            font-weight: bold;
+        }
+
+        .navbar-input {
+            padding: 5px 16px;
+            border-radius: 6px;
+            border: solid 1px rgb(196, 196, 196);
+            outline: 0 none;
+            font-size: 15px;
+            position: relative;
+            height: 43px;
+        }
+
+        .navbar-input input {
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            outline: none;
+            height: 30px;
+            border: none;
+            background-color: #f8f9fa !important;
+        }
+        .inputsidebutton{
+            position: absolute;
+            top: 2px;
+            right: 0px;
+
+        }
+
+        .navbar-input button {
+
+            border-radius: 0 5px 5px 0;
+            z-index: 2;
+            border: none;
+            height: 37px;
+            background-color: #0da2ff !important;
+            color: white;
+            transform: translateX(-3px);
+            width: 81px;
+            font-size: 14px;
+            margin: -1px;
+            margin-bottom: 3px;
+        }
+        .navbar .navbar-input select{
+            border-radius: 5px 0px 0 5px;
+            border: none;
+            height: 37px;
+            background-color: #6dbef0 !important;
+            padding: 0px 6px;
+        }
+
+        .navbar-input button:hover {
+            color: white;
+        }
+
+
+        .nav-link {
+            color: #0da2ff !important;
+            font-size: 17px;
+            margin: 0 5px;
+            width: 80px !important;
+        }
+
+        .cart-button {
+            background-color: #0da2ff;
+            box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .23), inset 1px 1px 0 0 hsla(0, 0%, 100%, .2);
+            padding: 10px 0;
+            text-align: center;
+            height: 41px;
+            border-radius: 2px;
+            font-weight: 500;
+            width: 120px;
+            display: inline-block;
+            color: #FFFFFF !important;
+            text-decoration: none;
+            color: inherit;
+            border: none;
+            outline: none
+        }
+
+        .cart-button:hover {
+            text-decoration: none;
+            cursor: pointer
+        }
+
+        .cart-svg {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 8px
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0px
+        }
+
+        .dropdown-item{
+            font-size: 15px;
+        }
+        .dropdown:hover .links {
+            color: #000
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block
+        }
+
+        .dropdown .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            display: none;
+            background-color: #fff;
+            color: #333;
+            left: 0px;
+            border: 0;
+            border-radius: 0;
+            box-shadow: 0 4px 8px -3px #555454;
+            margin: 0;
+            padding: 0px
+        }
+
+        .links {
+            color: rgb(0, 0, 0);
+            text-decoration: none
+        }
+
+        .links:hover {
+            color: rgb(0, 0, 0);
+            text-decoration: none
+        }
+        @media screen and (max-width: 768px) {
+            .navbar{
+                padding: 0 1rem;
+            }
+            .navbar-input select {
+                width: 20px;
+                margin-bottom: 10px;
+                font-size: 15px;
+            }
+            .navbar-input button{
+                width: 58px;
+                padding: 0.375rem 0;
+                font-size: 13px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
+        <a class="navbar-brand " href="/">D Floss</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <form action="/search" class="my-2 my-lg-0 col-md-6" method="get" id="search">
+            <div class="row navbar-input ">
+                <input class=" col-md-11" type="search" placeholder="Search for Products"
+                    name="query" id="query">
+                    <div class="inputsidebutton">
+                        <select name="categ" id="select">
+                            <option value="" selected>Select Category</option>
+                            {% for items in categories%}
+                            <option >{{items}}</option>
+                            {% endfor %}
+                        </select>
+                    <button class="btn" type="submit">Search</button>
+                    </div>
+
+            </div>
+        </form>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item align-self-center">
+              <a class="nav-link" href="/my-order">Orders</a>
+            </li>
+            <li class="nav-item align-self-center">
+              <a class="nav-link" href="/edit-profile">Profile</a>
+            </li>
+            <li class="nav-item align-self-center">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            <li class="nav-item align-self-center dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/send-feedback">Send Feedback</a>
+                    <a class="dropdown-item" href="/contactus">Contact Us</a>
+                    <a class="dropdown-item" href="/aboutus">About Us</a>
+                  </div>
+            </li>
+            <li class="nav-item">
+                <div class="cart1 col-sm-2 nav-link"> <a class="cart-button" href="/cart"> <svg class="cart-svg "
+                    width="16 " height="16 " viewBox="0 0 16 16 ">
+                    <path
+                        d="M15.32 2.405H4.887C3 2.405 2.46.805 2.46.805L2.257.21C2.208.085 2.083 0 1.946 0H.336C.1 0-.064.24.024.46l.644 1.945L3.11 9.767c.047.137.175.23.32.23h8.418l-.493 1.958H3.768l.002.003c-.017 0-.033-.003-.05-.003-1.06 0-1.92.86-1.92 1.92s.86 1.92 1.92 1.92c.99 0 1.805-.75 1.91-1.712l5.55.076c.12.922.91 1.636 1.867 1.636 1.04 0 1.885-.844 1.885-1.885 0-.866-.584-1.593-1.38-1.814l2.423-8.832c.12-.433-.206-.86-.655-.86 "
+                        fill="#fff "></path>
+                </svg> Cart <span class="item-number ">{{ product_count_in_cart }}</span> </a>
+         </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

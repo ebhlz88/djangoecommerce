@@ -1,0 +1,6 @@
+{% autoescape on %}
+
+{{user.email}} has ordered 
+{% for items in prod_names %}{{items}}{% endfor %}
+
+{% endautoescape %} 
