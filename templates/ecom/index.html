@@ -2,32 +2,100 @@
 {% block title%} Home {% endblock %}
 {% block content %}
 {% load static %}
-<!-- {% if message %}
-{% include 'ecom/toast.html' %}
-{% endif %} -->
+
 {%if messages %}
 {%for message in messages%}
-{% include 'ecom/toast.html' with logoutmsg=message %}
+{% include 'ecom/toast.html' with logoutmsg=message color="green" %}
 {%endfor%}
 {%endif%}
+<div id="index">
+  {% if word|length == 0 %}
+<div class="row">
+  <div class="col-md-2">
+    <div class="dropdown mt-2 ml-4">
+      <button class="btn btn-secondary" type="button">
+        Categories
+      </button>
+      <div class="cat_dropdown">
+        {% for items in categories %}
+        <form action="/searchbycat" method="get" class="justify-content-start py-1 catitem">
+          <input style="display:none;" type="text" name="query" value="{{items}}">
+          <button style="border: none; background-color: transparent;" type="submit"
+            class="category_dropdown_btn">{{items}}</button>
+        </form>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <h2 class="homeheader">Featured Products</h2>
+    <!-- corousal start -->
+    <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+      <!--Slides-->
+      <div class="carousel-inner" role="listbox">
+
+        <!--First slide-->
+        <div class="carousel-item row active">
+          <a class="btn-floating my-auto ml-1" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left p-auto"></i></a>
+          {% for f in featured %}
+          <a href="{% url 'prod_desc' pk=f.product.id  %} " class="productanchor col-md-4">
+            <div class="card shadow-sm m-2 p-2">
+              <img src="{% static f.product.product_image.url %}" class="card-img-top" alt="{{p.name}}">
+              <div class="card-body">
+                <div class="clearfix mb-2"> <span class="product_name">{{f.product.name}}</span>
+                  {% if f.product.quantity == "0" %}
+                  <span class="float-end badge rounded-pill bg-primary">Out of Stock</span>
+                  {% else %}
+                  <span class="float-end badge rounded-pill bg-primary">In Stock</span>
+                </div>
+                {% endif %}
+                <span class="float-start price-hp"><b>Price R.{{f.product.price}}</b></span>
+              </div>
+            </div>
+          </a>
+
+          {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+          <a class="btn-floating my-auto ml-1" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right my-auto"></i></a>
+        </div>
+        <div class="carousel-item">
+          <a class="btn-floating my-auto ml-1" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left my-auto"></i></a>
+          {% endif %}
+          {% endfor %}
+          <a class="btn-floating my-auto ml-1" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right my-auto"></i></a>
+        </div>
+
+        <!--/.First slide-->
+      </div>
+      <!--/.Slides-->
+
+    </div>
+
+    <!-- corousel end -->
+  </div>
+</div>
+{% endif %}
+
+
+<!-- all products -->
 {%if products%}
 {{word}}
-  <div class="col-md-12 row py-3"> 
+<h2 class="homeheader">All Products</h2>
+<div class="col-md-12 row">
 
-      {% for p in products %}
-      <a href="{% url 'add-to-cart' p.id p.quantity  %} " class="productanchor my-3">
-      <div class="card shadow-sm m-2" > <img src="{% static p.product_image.url %}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <div class="clearfix mb-3"> <span class="product_name">{{p.name}}</span> 
-            {% if p.quantity == "0" %}
-            <span class="float-end badge rounded-pill bg-primary">Out of Stock</span>
-            {% else %}
-            <span class="float-end badge rounded-pill bg-primary">Quantity Available {{p.quantity}}</span>
-          </div>
-           {% endif %}
-              <span class="float-start price-hp"><b>Price R.{{p.price}}</b></span> 
-            <p class="card-title">{{p.description}}</p>
+  {% for p in products %}
+  <a href="{% url 'prod_desc' pk=p.id   %} " class="productanchor mx-auto">
+    <div class="card shadow-sm m-2 p-2">
+      <img src="{% static p.product_image.url %}" class="card-img-top" alt="{{p.name}}">
+      <div class="card-body">
+        <div class="clearfix mb-2"> <span class="product_name">{{p.name}}</span>
+          {% if p.quantity == "0" %}
+          <span class="float-end badge rounded-pill bg-primary">Out of Stock</span>
+          {% else %}
+          <span class="float-end badge rounded-pill bg-primary">In Stock</span>
         </div>
+        {% endif %}
+        <span class="float-start price-hp"><b>Price R.{{p.price}}</b></span>
+      </div>
     </div>
   </a>
   {% endfor %}
@@ -37,16 +105,13 @@
 {%endif%}
 
 </div>
+</div>
 {%endblock content%}
 {% block js %}
 
-    {%if messages %}
-    {%for message in messages%}
-    <!-- alert('{{message}}'); -->
-    {%endfor%}
-    {%endif%}
+{%if messages %}
+{%for message in messages%}
+<!-- alert('{{message}}'); -->
+{%endfor%}
+{%endif%}
 {% endblock js %}
-
-
-
-

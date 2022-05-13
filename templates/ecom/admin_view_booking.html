@@ -35,8 +35,10 @@
           <th>Customer Mobile</th>
           <th>Shipment Address</th>
           <th>Product Name</th>
+          <th>Quantity</th>
           <th>Product Picture</th>
           <th>Status</th>
+          <th>Payment verified</th>
           <th>Update Status</th>
           <th>Delete</th>
         </tr>
@@ -52,8 +54,10 @@
         {% endfor %}
         {% for p in product %}
         <td> {{p.name}}</td>
+        <td>{{order.quantity}}</td>
         <td> <img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
         <td>{{order.status}}</td>
+        <td>{{order.Payment.verified}}</td>
         <td><a class="btn btn-primary btn-xs" href="{% url 'update-order' order.id  %}"><span class="glyphicon glyphicon-edit"></span></a></td>
         <td><a class="btn btn-danger btn-xs" href="{% url 'delete-order' order.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
 

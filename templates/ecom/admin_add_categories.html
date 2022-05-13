@@ -41,6 +41,9 @@
     .menu {
       top: 50px;
     }
+    .catview{
+      overflow:auto;
+    }
   </style>
 
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -63,10 +66,10 @@
             <button type="submit" class="btnSubmit">ADD</button>
           </form>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 catview">
             <h4>Categories List</h4>
             {% for items in categories %}
-            {{items}}  <br>
+            <b>-</b>{{items}}  <br>
             {% endfor %}
           </div>
         </div>

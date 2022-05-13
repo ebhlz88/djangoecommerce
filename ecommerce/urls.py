@@ -9,8 +9,7 @@ urlpatterns = [
 
     path('activate/<uidb64>/<token>',views.activate_user, name='activate'),
 
-    path('', views.corousal,name='corousal'),
-    path('products',views.home_view,name='products'),
+    path('', views.home_view,name='home'),
     path('afterlogin', views.afterlogin_view,name='afterlogin'),
     path('logout', LogoutView.as_view(),name='logout'),
     path('aboutus', views.aboutus_view),
@@ -61,6 +60,8 @@ urlpatterns = [
 
     path('paystack/', views.initiate_payment, name='initiate_payment'),
     path('verify_payment/<str:ref>/', views.verify_payment, name='verify_payment'),
+
+    path('desc/<int:pk>', views.prod_desc, name='prod_desc'),
 
 
 

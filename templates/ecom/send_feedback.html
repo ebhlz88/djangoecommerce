@@ -30,6 +30,7 @@ form{
   width:60%;
   margin: 23px;
 }
+
 .alert-success{
   width:100%;
 }
@@ -39,10 +40,13 @@ form{
 {% load static %}
 {% load widget_tweaks %}
 <div class="d-flex flex-column align-items-center">
+  {%if messages %}
+{%for message in messages%}
+{% include 'ecom/toast.html' with logoutmsg=message color="green" %}
+{%endfor%}
+{%endif%}
   <h3 class='alert alert-success text-center'>Send Us Your Valuable Feedback !</h3>
-
-
-  <form method="post col-md-6 justify-content-center">
+  <form method="post">
     {% csrf_token %}
 
     {% render_field feedbackForm.name class="field-long form-control" placeholder="Name" %}

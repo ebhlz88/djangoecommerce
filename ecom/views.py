@@ -54,27 +54,11 @@ def send_order_confirmation_email(user,product_names, request):
     email =  EmailMessage(subject=email_subject,body=email_body,from_email=settings.EMAIL_FROM_USER,to=[settings.EMAIL_FROM_USER])
     EmailThread(email).start()
 
-def getProdswithCats():
-        allProds = []
-        catprods = models.Product.objects.values('category', 'id')
-        cats = {item['category'] for item in catprods}
-        for cat in cats:
-            prod = models.Product.objects.filter(category=cat)
-            n = len(prod)
-            nSlides = n // 4 + ceil((n / 4) - (n // 4))
-            allProds.append([prod, range(1, nSlides), nSlides])
-        return allProds
-
-
-
-def corousal(request):
-    categories= models.categories.objects.all()
-    return render(request, 'ecom/home.html', {'categories':categories,'allProds':getProdswithCats()})
-
 
 def home_view(request):
     products=models.Product.objects.all()
     categories= models.categories.objects.all()
+    featured = models.Featured.objects.filter()
     if 'product_ids' in request.COOKIES:
         product_ids = request.COOKIES['product_ids']
         counter=product_ids.split('|')
@@ -83,7 +67,7 @@ def home_view(request):
         product_count_in_cart=0
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'ecom/index.html',{'products':products,'product_count_in_cart':product_count_in_cart,'categories':categories})
+    return render(request,'ecom/index.html',{'products':products,'product_count_in_cart':product_count_in_cart,'categories':categories,'featured':featured})
 
 
 #for showing login button for admin
@@ -131,12 +115,10 @@ def customer_signup_view(request):
 def is_customer(user):
     return user.groups.filter(name='CUSTOMER').exists()
 
-
-
 #---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,CUSTOMER
 def afterlogin_view(request):
     if is_customer(request.user):
-        return redirect('customer-home')
+        return redirect('/')
     else:
         return redirect('admin-dashboard')
 
@@ -351,7 +333,7 @@ def add_to_cart_view(request,pk,quantity):
     else:
         product_count_in_cart=1
 
-    response = render(request, 'ecom/home.html',{'allProds':getProdswithCats(),'product_count_in_cart':product_count_in_cart,'categories':categories})
+    response = redirect('/')
 
     #adding product id to cookies
     if 'product_ids' in request.COOKIES:
@@ -494,7 +476,8 @@ def send_feedback_view(request):
         feedbackForm = forms.FeedbackForm(request.POST)
         if feedbackForm.is_valid():
             feedbackForm.save()
-            return render(request, 'ecom/feedback_sent.html')
+            messages.success(request, 'Feedback Submitted Successfully.')
+            return redirect('/send-feedback')
     return render(request, 'ecom/send_feedback.html', {'feedbackForm':feedbackForm,'categories':categories})
 
 
@@ -504,15 +487,16 @@ def send_feedback_view(request):
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
 def customer_home_view(request):
+    products=models.Product.objects.all()
     categories= models.categories.objects.all()
+    featured = models.Featured.objects.filter()
     if 'product_ids' in request.COOKIES:
         product_ids = request.COOKIES['product_ids']
         counter=product_ids.split('|')
         product_count_in_cart=len(set(counter))
     else:
         product_count_in_cart=0
-    return render(request,'ecom/home.html',{'allProds':getProdswithCats(),'product_count_in_cart':product_count_in_cart,'categories':categories})
-
+    return render(request,'ecom/index.html',{'products':products,'product_count_in_cart':product_count_in_cart,'categories':categories,'featured':featured})
 
 
 # shipment address before placing order
@@ -714,8 +698,9 @@ def contactus_view(request):
             email = sub.cleaned_data['Email']
             name=sub.cleaned_data['Name']
             message = sub.cleaned_data['Message']
-            send_mail(str(name)+' || '+str(email),message, settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
-            return render(request, 'ecom/contactussuccess.html')
+            send_mail(str(name)+' || '+str(email),message, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], fail_silently = False)
+            messages.success(request, 'Submitted Successfully.')
+            return redirect('contactus')
     return render(request, 'ecom/contactus.html', {'form':sub,'categories':categories})
 
 def show_message_logout(sender, user, request, **kwargs):
@@ -837,3 +822,7 @@ def verify_payment(request, ref):
         messages.error(request, 'verficatoin failed')
 
     return response
+
+def prod_desc(request,pk):
+    product = models.Product.objects.get(pk=pk)
+    return render(request,'ecom/product_description.html',{'product':product})

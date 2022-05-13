@@ -87,6 +87,10 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+class Featured(models.Model):
+    product = models.ForeignKey('Product',on_delete=models.CASCADE)   
+    def __str__(self):
+        return self.product.name
 
 
 class Feedback(models.Model):

@@ -8,7 +8,7 @@ html {
 
 }
 #makepayment{
-    padding: 50px 0;
+    padding: 100px 0;
     position:relative;
 }
 
@@ -17,10 +17,10 @@ html {
 {% load widget_tweaks %}
 {% load static %}
 <div id="makepayment">
-<div  class="d-flex flex-column justify-content-center align-items-center bg-white my-3 mx-auto px-2 py-3 w-50 shadow-lg">
+<div  class="d-flex flex-column justify-content-center align-items-center bg-white my-3 mx-auto px-2 py-5 w-50 shadow-lg">
     <h3>Confirmation</h3>
     <p>Please confirm you transaction. Thank you</p>
-    <p>Total Price : {{ total }}</p>
+    <p>Total Price : <b>{{ total }}</b></p>
         <script src="https://js.paystack.co/v1/inline.js"></script>
         <button class="btn btn-primary" onclick="payWithPaystack()" id="django-paystack-button">Pay</button>
 </div>

@@ -1,0 +1,56 @@
+{% extends 'ecom/container.html' %}
+{% block title%} Login {% endblock %}
+{% load widget_tweaks %}
+{% load static %}
+{% block css %}
+body{
+  background-color: white !important;
+}
+.container-div{
+  width: 68% !important;
+  background-color: white;
+  box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+  -webkit-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+  -moz-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
+}
+.imgdesc{
+    width: 400px;
+    height: 315px;
+}
+hr{
+    margin:0 !important;
+}
+@media screen and (max-width: 768px) {
+
+}
+{% endblock css %}
+{% block content %}
+
+<div id="customerlogin" class="row p-3">
+<div class="col-md-6 py-3 border-right">
+    <img src="{% static product.product_image %}" class="imgdesc" alt="">
+</div>
+<div class="d-flex flex-column align-items-start col-md-6 p-3">
+    <div class="d-flex justify-content-between w-100 ">
+    <div>
+        <h1 class="text-capitalize">{{product.name}}</h1> <hr>
+        <div class="row my-2">
+            <h4>Price :</h4>&nbsp;&nbsp;
+            <h4 class="text-capitalize">R.{{product.price}}</h4>
+        </div>
+        <hr>
+    </div>
+<a class="btn btn-primary my-auto" href="{% url 'add-to-cart' product.id product.quantity  %} ">Add To Cart</a>
+</div>
+    <div class="row my-2">
+        <p>Description :</p>&nbsp;&nbsp;
+        <p class="text-capitalize">{{product.description}}</p>
+    </div>
+
+
+</div>
+</div>
+{% endblock content %}
+
+
+<!-- <a href="{% url 'add-to-cart' f.product.id f.product.quantity  %} " -->

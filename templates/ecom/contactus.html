@@ -38,14 +38,22 @@ form{
 {%block content%}
 {% load static %}
 {% load widget_tweaks %}
+{%if messages %}
+{%for message in messages%}
+{% include 'ecom/toast.html' with logoutmsg=message color="green" %}
+{%endfor%}
+{%endif%}
 <div class="d-flex flex-column align-items-center">
   <h3 class='alert alert-success text-center'>Send Us Your Valuable Feedback !</h3>
 
 
-  <form method="post col-md-6 justify-content-center">
+  <form method="post">
     {% csrf_token %}
+    {% render_field form.Name class="field-long form-control" placeholder="Name" %}
 
-    <h3 class="form-control">{{ form.as_p }}</h3>
+    {% render_field form.Email id="field5" class="field-long mb-3 form-control" placeholder="Email" %}
+    {% render_field form.Message id="field5" class="field-long mb-3 field-textarea form-control" placeholder="Message" %}
+
 
     <input type="submit" value="Send Feedback" />
   </form>
