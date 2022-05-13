@@ -6,7 +6,7 @@
 {%if messages %}
 {%for message in messages%}
 {% include 'ecom/toast.html' with logoutmsg=message color="green" %}
-{%endfor%}
+{%endfor%} 
 {%endif%}
 <div id="index">
   {% if word|length == 0 %}
@@ -53,7 +53,6 @@
               </div>
             </div>
           </a>
-
           {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
           <a class="btn-floating my-auto ml-1" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right my-auto"></i></a>
         </div>
@@ -63,14 +62,47 @@
           {% endfor %}
           <a class="btn-floating my-auto ml-1" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right my-auto"></i></a>
         </div>
-
         <!--/.First slide-->
       </div>
-      <!--/.Slides-->
-
     </div>
-
     <!-- corousel end -->
+    <!-- mobileview corousel -->
+    <div id="multi-item-mobile" class="carousel slide carousel-multi-item" data-ride="carousel">
+      <!--Slides-->
+      <div class="carousel-inner" role="listbox">
+
+        <!--First slide-->
+        <div class="carousel-item row active">
+          <a class="btn-floating my-auto" href="#multi-item-mobile" data-slide="prev"><i class="fa fa-chevron-left p-auto"></i></a>
+          {% for f in featured %}
+          <a href="{% url 'prod_desc' pk=f.product.id  %} " class="productanchor col-md-4">
+            <div class="card shadow-sm m-2 p-2">
+              <img src="{% static f.product.product_image.url %}" class="card-img-top" alt="{{p.name}}">
+              <div class="card-body">
+                <div class="clearfix mb-2"> <span class="product_name">{{f.product.name}}</span>
+                  {% if f.product.quantity == "0" %}
+                  <span class="float-end badge rounded-pill bg-primary">Out of Stock</span>
+                  {% else %}
+                  <span class="float-end badge rounded-pill bg-primary">In Stock</span>
+                </div>
+                {% endif %}
+                <span class="float-start price-hp"><b>Price R.{{f.product.price}}</b></span>
+              </div>
+            </div>
+          </a>
+          {% if forloop.counter|divisibleby:1 and forloop.counter > 0 and not forloop.last %}
+          <a class="btn-floating my-auto" href="#multi-item-mobile" data-slide="next"><i class="fa fa-chevron-right my-auto"></i></a>
+        </div>
+        <div class="carousel-item">
+          <a class="btn-floating my-auto" href="#multi-item-mobile" data-slide="prev"><i class="fa fa-chevron-left my-auto"></i></a>
+          {% endif %}
+          {% endfor %}
+          <a class="btn-floating my-auto" href="#multi-item-mobile" data-slide="next"><i class="fa fa-chevron-right my-auto"></i></a>
+        </div>
+        <!--/.First slide-->
+      </div>
+    </div>
+    <!-- mobileview corousel end -->
   </div>
 </div>
 {% endif %}
@@ -108,7 +140,7 @@
 </div>
 {%endblock content%}
 {% block js %}
-
+let h=3;
 {%if messages %}
 {%for message in messages%}
 <!-- alert('{{message}}'); -->

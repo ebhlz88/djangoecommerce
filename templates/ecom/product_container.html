@@ -190,9 +190,23 @@ width: 32% !important;
     padding: 1px 0px;
     background-color: white;
 }
+#multi-item-mobile{
+    display:none;
+}
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 800px) {
+#multi-item-example{
+    display:none;
+}
+#multi-item-mobile{
+    display:block;
+}
+.carousel-item .col-md-4 {
+    display: inline-block;
+    margin-left: -23px;
+    width: 325px !important;
+}
   .column {
     width: 100%;
   }
