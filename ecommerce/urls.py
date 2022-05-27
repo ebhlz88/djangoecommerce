@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from ecom import views
 from django.contrib.auth.views import LoginView,LogoutView
+from django.conf.urls.static import static
+from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -14,6 +16,7 @@ urlpatterns = [
     path('logout', LogoutView.as_view(),name='logout'),
     path('aboutus', views.aboutus_view),
     path('contactus', views.contactus_view,name='contactus'),
+    path('delivery', views.delivery,name='delivery'),
     path('search', views.search_view,name='search'),
     path('searchbycat', views.search_viewbyCategory,name='searchbycat'),
     path('send-feedback', views.send_feedback_view,name='send-feedback'),
@@ -67,4 +70,4 @@ urlpatterns = [
 
 
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -118,7 +118,7 @@ def is_customer(user):
 #---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,CUSTOMER
 def afterlogin_view(request):
     if is_customer(request.user):
-        return redirect('/')
+        return redirect('/customer-home')
     else:
         return redirect('admin-dashboard')
 
@@ -211,6 +211,19 @@ def admin_add_product_view(request):
 
 @login_required(login_url='adminlogin')
 @staff_member_required
+def add_categories(request):
+    categories = models.categories.objects.all()
+    categoriesform = forms.CategoriesForm()
+    if request.method == 'POST':
+        categoriesform = forms.CategoriesForm(request.POST)
+        if categoriesform.is_valid():
+            categoriesform.save()
+            return render(request,'ecom/admin_add_categories.html',{'categories':categories,'form':categoriesform})
+    return render(request,'ecom/admin_add_categories.html',{'categories':categories,'form':categoriesform})
+
+
+@login_required(login_url='adminlogin')
+@staff_member_required
 def delete_product_view(request,pk):
     product=models.Product.objects.get(id=pk)
     product.delete()
@@ -272,15 +285,6 @@ def view_feedback_view(request):
     feedbacks=models.Feedback.objects.all().order_by('-id')
     return render(request,'ecom/view_feedback.html',{'feedbacks':feedbacks})
 
-def add_categories(request):
-    categories = models.categories.objects.all()
-    categoriesform = forms.CategoriesForm()
-    if request.method == 'POST':
-        categoriesform = forms.CategoriesForm(request.POST)
-        if categoriesform.is_valid():
-            categoriesform.save()
-            return render(request,'ecom/admin_add_categories.html',{'categories':categories,'form':categoriesform})
-    return render(request,'ecom/admin_add_categories.html',{'categories':categories,'form':categoriesform})
 
 #---------------------------------------------------------------------------------
 #------------------------ PUBLIC CUSTOMER RELATED VIEWS START ---------------------
@@ -612,20 +616,20 @@ def my_order_view(request):
 
 #--------------for discharge patient bill (pdf) download and printing
 import io
-from xhtml2pdf import pisa
+# from xhtml2pdf import pisa
 from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse
 
 
 def render_to_pdf(template_src, context_dict):
-    template = get_template(template_src)
-    html  = template.render(context_dict)
-    result = io.BytesIO()
-    pdf = pisa.pisaDocument(io.BytesIO(html.encode("ISO-8859-1")), result)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return
+    # template = get_template(template_src)
+    # html  = template.render(context_dict)
+    # result = io.BytesIO()
+    # pdf = pisa.pisaDocument(io.BytesIO(html.encode("ISO-8859-1")), result)
+    # if not pdf.err:
+    #     return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return HttpResponse('soon it will be fixed')
 
 @login_required(login_url='customerlogin')
 @user_passes_test(is_customer)
@@ -826,3 +830,6 @@ def verify_payment(request, ref):
 def prod_desc(request,pk):
     product = models.Product.objects.get(pk=pk)
     return render(request,'ecom/product_description.html',{'product':product})
+
+def delivery(request):
+    return render(request, 'ecom/delivary.html')

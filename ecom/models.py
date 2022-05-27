@@ -82,7 +82,7 @@ class Product(models.Model):
     product_image= models.ImageField(upload_to='product_image/',null=True,blank=True)
     category = models.ForeignKey(categories, on_delete=models.CASCADE)
     price = models.PositiveIntegerField()
-    description=models.CharField(max_length=40)
+    description=models.CharField(max_length=255)
     quantity=models.IntegerField(default=1)
     def __str__(self):
         return self.name

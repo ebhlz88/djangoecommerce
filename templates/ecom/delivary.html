@@ -1,0 +1,63 @@
+{% extends 'ecom/container.html' %}
+{% block title %} Delivery {% endblock %}
+{% load widget_tweaks %}
+{% load static %}
+{% block css %}
+.search-section{
+background-color: #0F79BF;;
+color: white;
+padding: 20px 100px;
+}
+.white-button{
+padding:10px;
+background-color:white;
+}
+.deliverymain{
+background-color:white;
+width:50%;
+}
+
+element.style {
+}
+.question {
+border: solid 1px slateblue;
+padding: 9px;
+background-color: #626262;
+color: white;
+}
+.content-area{
+padding: 9px 25px;
+}
+{% endblock %}
+{% block content %}
+<div class="search-section">
+    <div class="large-centered">
+        <div class="d-flex align-items-center justify-content-around">
+            <div class="large-8 medium-12 column">
+                <h1 class="help-title">When will I get my order?</h1>
+                <p>Find tracking information and order details in <strong>My Account</strong>, under
+                    <strong>Orders</strong>.</p>
+            </div>
+            <div class="large-4 medium-12 column">
+                <div class="expected-delivery-date">
+                    <a href="my-order" class="white-button">View Orders →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center m-3">
+    <div class="deliverymain shadow mb-5 bg-white rounded">
+        <h3 class="question">When will my order be delivered?</h3>
+        <div class="content-area">
+            <div class="tip"></div>
+            <h5>Answer</h5>
+            <p>We'll deliver your order by the Estimated Delivery Date provided in your Payment Confirmation
+                email.<br><br>You can also track your delivery at any time by selecting the Order from your Order
+                History on your Takealot Account profile <a href="/my-order"
+                    target="_blank">here</a>.<br><br>This is the most current tracking information we have for your
+                order. If this date changes, we’ll let you know straight away by email or SMS.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -40,7 +40,7 @@
           {% for f in featured %}
           <a href="{% url 'prod_desc' pk=f.product.id  %} " class="productanchor col-md-4">
             <div class="card shadow-sm m-2 p-2">
-              <img src="{% static f.product.product_image.url %}" class="card-img-top" alt="{{p.name}}">
+              <img src="{{ f.product.product_image.url }}" class="card-img-top" alt="{{p.name}}">
               <div class="card-body">
                 <div class="clearfix mb-2"> <span class="product_name">{{f.product.name}}</span>
                   {% if f.product.quantity == "0" %}
@@ -66,6 +66,8 @@
       </div>
     </div>
     <!-- corousel end -->
+
+
     <!-- mobileview corousel -->
     <div id="multi-item-mobile" class="carousel slide carousel-multi-item" data-ride="carousel">
       <!--Slides-->
@@ -77,7 +79,7 @@
           {% for f in featured %}
           <a href="{% url 'prod_desc' pk=f.product.id  %} " class="productanchor col-md-4">
             <div class="card shadow-sm m-2 p-2">
-              <img src="{% static f.product.product_image.url %}" class="card-img-top" alt="{{p.name}}">
+              <img src="{{ f.product.product_image.url }}" class="card-img-top" alt="{{p.name}}">
               <div class="card-body">
                 <div class="clearfix mb-2"> <span class="product_name">{{f.product.name}}</span>
                   {% if f.product.quantity == "0" %}
@@ -117,7 +119,7 @@
   {% for p in products %}
   <a href="{% url 'prod_desc' pk=p.id   %} " class="productanchor mx-auto">
     <div class="card shadow-sm m-2 p-2">
-      <img src="{% static p.product_image.url %}" class="card-img-top" alt="{{p.name}}">
+      <img src="{{ p.product_image.url }}" class="card-img-top" alt="{{p.name}}">
       <div class="card-body">
         <div class="clearfix mb-2"> <span class="product_name">{{p.name}}</span>
           {% if p.quantity == "0" %}

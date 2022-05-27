@@ -1,6 +1,6 @@
 {% extends 'ecom/container.html' %}
 
-{% block title%}Feedback{% endblock title %}
+{% block title%}Profile{% endblock title %}
 
 
 {% block css %}
@@ -14,8 +14,8 @@ body{
   -webkit-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
   -moz-box-shadow: -3px 2px 13px 4px rgba(0,0,0,0.24);
   }
-  input[type=text], input[type=password]{
-  margin: 18px 0;
+  input[type=text], input[type=password], input[type=email]{
+  margin: 13px 0;
   }
   button{
   background-color: rgb(1, 98, 143);
@@ -32,6 +32,8 @@ body{
   }
   #profileform{
     display: none;
+    padding-bottom: 55px;
+
   }
   .alert-success{
     width:100%;
@@ -49,6 +51,11 @@ body{
   .profileview p{
     margin: 18px 0;
   }
+  @media screen and (max-width: 768px) {
+    .container-div {
+      width: 90% !important; 
+    }
+  }
     {% endblock css%}
 
     {%block content%}
@@ -58,11 +65,10 @@ body{
   <div class="header text-center">
       <p>PROFILE</p>
     </div> 
-  <div  class="d-flex flex-column justify-content-center mx-auto py-3 profileview" >
+  <div  class="d-flex flex-column justify-content-center mx-auto py-3 pb-5 profileview" >
     <p class="form-control">{{request.user}}</p>
     <p class="form-control">{{customer.mobile}}</p>
     <p class="form-control">Password</p>
-    <p class="form-control">{{customer.address}}</p>
     <button onclick="editshow()">Edit Profile</button>
   </div>
   </div>
@@ -74,17 +80,16 @@ body{
   {% csrf_token %}
     {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
 
-    {% render_field userForm.username class="form-control" placeholder="Username" %}
+    {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+
+    {% render_field userForm.email class="form-control" placeholder="Email" %}
 
     {% render_field customerForm.mobile class="form-control" placeholder="Mobile"%}
 
     {% render_field customerForm.profile_pic class="form-control" placeholder="Profile Picture" %}
 
-    {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
-
     {% render_field userForm.password class="form-control" placeholder="Password" %}
 
-    {% render_field customerForm.address class="form-control" placeholder="Address" %}
 
   <button type="submit" onsubmit="viewprofile()" class="btnSubmit">Update</button>
 </form>

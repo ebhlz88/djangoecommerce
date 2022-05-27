@@ -84,6 +84,12 @@
           text-align: center;
 
         }
+
+        @media screen and (min-width: 768px) {
+          .admincontent{
+          min-height: 80vh !important;
+        }
+        }
   </style>
 </head>
 
@@ -115,11 +121,12 @@
   </div>
 
   <!-- content start-->
+  <div class="admincontent">
   {% block content %}
 
   {% endblock content %}
+</div>
   <!-- content end-->
-<br><br><br><br><br><br><br><br>
 {% include 'ecom/footer.html' %}
 </body>
 </html>
